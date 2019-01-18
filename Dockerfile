@@ -1,5 +1,12 @@
+FROM maven:alpine as builder
+WORKDIR /usr/src/app
+COPY src/ ./src
+COPY pom.xml .
+RUN mvn -B -e -C -T 1C org.apache.maven.plugins:maven-dependency-plugin:3.0.2:go-offline
+RUN mvn -B -e -o -T 1C verify
+
 FROM openjdk:8
-COPY target/*.jar /usr/src/myapp/application.jar
-WORKDIR /usr/src/myapp
+WORKDIR /usr/src/app
+COPY --from=builder /usr/src/app/target/*.jar ./app.jar
 EXPOSE 8080
-CMD ["java", "-Dspring.profiles.active=local", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-jar", "application.jar"]
+CMD ["java", "-Dspring.profiles.active=master", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-jar", "app.jar"]
