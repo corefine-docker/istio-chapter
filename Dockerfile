@@ -9,4 +9,4 @@ FROM openjdk:8
 WORKDIR /usr/src/app
 COPY --from=builder /usr/src/app/target/*.jar ./app.jar
 EXPOSE 8080
-CMD ["java", "-Dspring.profiles.active=master", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-jar", "app.jar"]
+CMD ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLimitForHeap", "-jar", "app.jar"]
