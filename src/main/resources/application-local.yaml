@@ -1,7 +1,0 @@
-server:
-  port: 8081
-
-feign:
-  content: http://127.0.0.1:8082
-
-chapter.version: 1.0
