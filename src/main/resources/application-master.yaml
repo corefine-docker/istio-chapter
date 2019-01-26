@@ -2,6 +2,6 @@ server:
   port: 8080
 
 feign:
-  content: http://127.0.0.1:8082
+  content: http://content:8080
 
-chapter.version: 1.0
+chapter.version: 1.0.0
